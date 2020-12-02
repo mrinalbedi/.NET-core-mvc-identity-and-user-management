@@ -1,0 +1,72 @@
+﻿@*@{
+        ViewData["Title"] = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <h1>Index</h1>*@
+
+
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityRole>
+@{
+    ViewData["Title"] = "ListRole";
+}
+<h1>Current Roles</h1>
+
+<form asp-action="CreateRole" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <label>Create new role: </label>
+    <input type="text" name="roleName" />
+    <input class="btn btn-primary" type="submit" value="Create role" />
+</form>
+<h3>@ViewBag.ErrorMessage</h3>
+@if (Model.Any())
+{
+    @*<div class="text-danger font-weight-bold text-center">@TempData["message"]</div>*@
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                @if (item.Name == "administrators")
+                {
+            <td>
+                <a asp-action="UsersInRole" asp-route-id="@item.Id">Users In Role</a>
+              
+            </td>
+                   
+                }
+                else
+                {
+
+                    <td>
+                        <a asp-action="UsersInRole" asp-route-id="@item.Id">Users In Role</a>
+
+                        |
+                        <a asp-action="DeleteRole" asp-route-id="@item.Id">Delete Role</a>
+                    </td>
+
+                   
+                }
+
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+   
+}

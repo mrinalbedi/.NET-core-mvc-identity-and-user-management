@@ -1,0 +1,55 @@
+﻿@model IEnumerable<MBPatients.Models.UsersInRole>
+
+@{
+    var roleId = ViewBag.roleId;
+    ViewData["Title"] = "Confirm Delete of Role: " + ViewData["roleName"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>@ViewData["Title"]</h1>
+<h2>Users in Role</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NormalizedEmail)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NormalizedEmail)
+                </td>
+                <td>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<form method="post" asp-action="DeleteRole">
+    <button asp-action="DeleteRole" asp-route-id="@roleId">Delete Confirmed</button>
+    &nbsp;&nbsp;
+    &nbsp; 
+    <button asp-action="#">Cancel Delete</button>
+</form>
+@*<a asp-action="DeleteRole" asp-route-id="@ViewData["RoleId"]"
+                                                 class="btn btn-primary">Confirm Delete</a>
+<a asp-action="DeleteRole" class="btn btn-primary">Cancel Delete</a>
+<a asp-action="Index">Return to Role List</a>*@

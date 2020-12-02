@@ -1,0 +1,61 @@
+﻿@model IEnumerable<MBPatients.Models.UsersInRole>
+
+@{
+    ViewData["Title"] = "Users In Role: " +ViewData["roleName"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+@*<div class="form-group">
+    <label class="control-label">Users not in Role: </label>
+    <select class ="form-control" asp-items="ViewBag.NotInRole" ></select>
+    <a asp-controller="Role" asp-action="EditUsersInRole1" asp-route-roleId="@ViewData["RoleId"]"
+       class="btn btn-primary">Add to Role</a>
+</div>*@
+
+<form method="post" asp-action="UsersInRole" class="form-check-inline">
+    <label class="control-label">Users not in Role:</label>
+    <select name="userName" class="form-control" asp-items="ViewBag.NotInRole"></select>
+    <span class="text-danger"></span>
+    <input type="submit" class="btn btn-primary" value="Add to Role"/>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NormalizedEmail)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NormalizedEmail)
+            </td>
+            <td>
+                <a asp-action="DeleteUser" asp-route-UserId="@item.Id" asp-route-RoleName="@ViewData["roleName"]">Remove</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<a asp-action="Index">Return to Role List</a>
